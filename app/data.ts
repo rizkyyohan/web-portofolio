@@ -205,8 +205,16 @@ export const contact = {
   phone: "+62 851-1162-1043",
   location: "Jakarta, Indonesia",
   socials: [
-    { name: "GitHub", href: "https://github.com/", handle: "@rizkyyohan14" },
-    { name: "Instagram", href: "https://instagram.com/", handle: "@rskyyohan" },
+    {
+      name: "GitHub",
+      href: "https://github.com/rizkyyohan",
+      handle: "@rizkyyohan",
+    },
+    {
+      name: "Instagram",
+      href: "https://instagram.com/rskyyohan",
+      handle: "@rizkyyohan",
+    },
   ],
 };
 
