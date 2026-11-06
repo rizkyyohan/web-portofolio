@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #070b11;
+    --foreground: #e6edf3;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-surface: #0d131c;
+    --color-surface-2: #121a26;
+    --color-line: #1e293b;
+    --color-accent: #22d3ee;
+    --color-accent-2: #34d399;
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::selection {
+    background: rgba(34, 211, 238, 0.3);
+}
+
+/* Subtle tech grid used as page background */
+.bg-grid {
+    background-image:
+        linear-gradient(
+            to right,
+            rgba(148, 163, 184, 0.06) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(148, 163, 184, 0.06) 1px,
+            transparent 1px
+        );
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at top, black 30%, transparent 75%);
+}
+
+.text-gradient {
+    background-image: linear-gradient(90deg, #22d3ee, #34d399);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
 }
