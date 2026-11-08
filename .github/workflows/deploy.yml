@@ -1,0 +1,54 @@
+
+name: Deploy Portfolio to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to VPS via SSH
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          ssh -i ~/.ssh/id_ed25519 \
+            -p "$VPS_PORT" \
+            -o StrictHostKeyChecking=accept-new \
+            "$VPS_USER@$VPS_HOST" 'bash -se' <<'REMOTE'
+
+          set -e
+
+          cd /home/deploy/web-portfolio
+
+          echo "Mengambil kode terbaru..."
+          git pull --ff-only origin main
+
+          echo "Menginstal dependencies..."
+          npm ci
+
+          echo "Build aplikasi..."
+          npm run build
+
+          echo "Restart aplikasi..."
+          pm2 restart portfolio --update-env
+
+          pm2 save
+
+          echo "Deployment berhasil!"
+
+          REMOTE
