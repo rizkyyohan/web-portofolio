@@ -33,7 +33,7 @@ jobs:
 
           set -e
 
-          cd /home/deploy/web-portfolio
+          cd /home/deploy/web-portofolio
 
           echo "Mengambil kode terbaru..."
           git pull --ff-only origin main
