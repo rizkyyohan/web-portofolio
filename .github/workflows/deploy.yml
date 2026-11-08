@@ -34,10 +34,21 @@ jobs:
           set -e
 
           cd /home/deploy/web-portofolio
-
+          
+          # Memuat konfigurasi NVM
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+          
+          # Menggunakan Node.js
+          nvm use 26.13.0
+          
+          # Memastikan Node.js dan NPM tersedia
+          node -v
+          npm -v
+          
           echo "Mengambil kode terbaru..."
           git pull --ff-only origin main
-
+          
           echo "Menginstal dependencies..."
           npm ci
 
